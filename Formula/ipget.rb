@@ -1,22 +1,22 @@
-class Ipget < Formula
-  desc "Simple IP acquisition tool written in Go"
+class Ip < Formula
+  desc "Display public and private IPs and city for active network interfaces"
   homepage "https://github.com/StarkChristmas/ipget"
   version "1.0.0"
 
   if Hardware::CPU.arm?
     url "https://github.com/StarkChristmas/ipget/releases/download/v1.0.0/ipget_macos_1.0.0_arm64.tar.gz"
-    sha256 "4e509a2c027ece739e814100e7b827aad34006574576ab775eed04cf6cc17d95"
+    sha256 "c6093016dec0cb27576dcaa486fbe47140640646198ac57757392280635122c6"
   else
     url "https://github.com/StarkChristmas/ipget/releases/download/v1.0.0/ipget_macos_1.0.0_x86_64.tar.gz"
-    sha256 "05cf6c52dbdf78b0a61dd54b1bd93d89446e9ef44cfb1c8c46833d1d9ec82aaa"
+    sha256 "04062e4b634778f68bad52ee8e5e02f1c13c28f210bce0252023e28f07174730"
   end
 
   def install
-    bin.install "ipget_#{Hardware::CPU.arm? ? "arm64" : "x86_64"}" => "ipget"
+    bin.install "ip_#{Hardware::CPU.arm? ? "arm64" : "x86_64"}" => "ip"
   end
 
   test do
-    output = shell_output("#{bin}/ipget")
-    assert_match /\d+\.\d+\.\d+\.\d+/, output
+    output = shell_output("#{bin}/ip 2>&1")
+    assert_match(/\d+\.\d+\.\d+\.\d+/, output)
   end
 end
